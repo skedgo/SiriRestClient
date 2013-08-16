@@ -5,8 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import uk.org.siri.siri.Siri;
-import android.os.Build;
-import android.util.Log;
+// TODO(jayen): move android specific stuff to a subclass
 import edu.usf.cutr.siri.android.client.config.SiriJacksonConfig;
 import edu.usf.cutr.siri.android.client.config.SiriRestClientConfig;
 
@@ -371,8 +370,8 @@ public class SiriRestClient {
 													// pre-Froyo
 			url = new URL(urlString);
 			
-			Log.d(TAG, "Using URL:");
-			Log.d(TAG, url.toString());
+//			Log.d(TAG, "Using URL:");
+//			Log.d(TAG, url.toString());
 			
 			/**
 			 * The below switch statement tests a variety of different configurations 
@@ -452,8 +451,8 @@ public class SiriRestClient {
 						 * 
 						 * However, Android docs suggest that HttpURLConnection is more efficient.
 						 */
-						Log.d(TAG,
-								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectReader Jackson parser, Jackson HTTP Connection");
+//						Log.d(TAG,
+//								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectReader Jackson parser, Jackson HTTP Connection");
 						requestStartTime= System.nanoTime();
 						s = SiriJacksonConfig.getObjectReaderInstance()
 								.readValue(url);
@@ -463,8 +462,8 @@ public class SiriRestClient {
 						 * ObjectReader should be more efficient than the ObjectMapper.  
 						 * So, we include this only for performance benchmarking tests.
 						 */
-						Log.v(TAG,
-								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectMapper Jackson parser, Jackson HTTP Connection");
+//						Log.v(TAG,
+//								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectMapper Jackson parser, Jackson HTTP Connection");
 						requestStartTime= System.nanoTime();
 						s = SiriJacksonConfig.getObjectMapperInstance()
 								.readValue(url, Siri.class);
@@ -481,8 +480,8 @@ public class SiriRestClient {
 						 *  From our analysis of both Android and Jackson docs,
 						 *  this should be the most efficient of the 4 JSON combinations.
 						 */
-						Log.v(TAG,
-								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectReader Jackson parser, Android HttpURLConnection");
+//						Log.v(TAG,
+//								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectReader Jackson parser, Android HttpURLConnection");
 						requestStartTime= System.nanoTime();
 						// Use Android HttpURLConnection - this should be more efficient than internal JSON HTTP connection
 						urlConnection = (HttpURLConnection) url.openConnection();
@@ -497,8 +496,8 @@ public class SiriRestClient {
 						 * the ObjectReader should be more efficient than the ObjectMapper.  So, we include this only for
 						 * performance benchmarking tests.
 						 */
-						Log.v(TAG,
-								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectMapper Jackson parser, Android HttpURLConnection");
+//						Log.v(TAG,
+//								"Using "+ getResponseTypeFileExtension().toUpperCase() + ", ObjectMapper Jackson parser, Android HttpURLConnection");
 						requestStartTime= System.nanoTime();
 						// Use Android HttpURLConnection - this should be more efficient than internal JSON HTTP connection
 						urlConnection = (HttpURLConnection) url.openConnection();
@@ -529,8 +528,8 @@ public class SiriRestClient {
 					 *  Jackson Best Practices says this should be most efficient, but Android docs suggest 
 					 *  Android HttpURLConnection is better.
 					 */
-					Log.v(TAG,
-							"Using "+ getResponseTypeFileExtension().toUpperCase() + ", Jackson HTTP Connection");
+//					Log.v(TAG,
+//							"Using "+ getResponseTypeFileExtension().toUpperCase() + ", Jackson HTTP Connection");
 					
 					// Parse the SIRI XML response					
 					requestStartTime= System.nanoTime();
@@ -543,8 +542,8 @@ public class SiriRestClient {
 					 *  Use Android HttpURLConnection.  Android docs say this is best, but
 					 *  Jackson Best Practices says integrated HTTP connection is better for normal Java platform.
 					 */
-					Log.v(TAG,
-							"Using "+ getResponseTypeFileExtension().toUpperCase() + ", Android HttpURLConnection");
+//					Log.v(TAG,
+//							"Using "+ getResponseTypeFileExtension().toUpperCase() + ", Android HttpURLConnection");
 					requestStartTime= System.nanoTime();
 					// Use Android HttpURLConnection
 					urlConnection = (HttpURLConnection) url.openConnection();
@@ -563,7 +562,7 @@ public class SiriRestClient {
 			}
 
 		} catch (IOException e) {
-			Log.e(TAG, "Error fetching JSON or XML: " + e);
+//			Log.e(TAG, "Error fetching JSON or XML: " + e);
 			e.printStackTrace();
 			//Reset timestamps to show there was an error
 			requestStartTime = 0;
@@ -581,9 +580,9 @@ public class SiriRestClient {
 	 * Disable HTTP connection reuse which was buggy pre-froyo
 	 */
 	private void disableConnectionReuseIfNecessary() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
-			System.setProperty("http.keepAlive", "false");
-		}
+//		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
+//			System.setProperty("http.keepAlive", "false");
+//		}
 	}
 	
 	
