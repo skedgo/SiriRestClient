@@ -14,8 +14,6 @@ import uk.org.siri.siri.Siri;
 import android.content.Context;
 import android.util.Log;
 
-import com.fasterxml.aalto.stax.InputFactoryImpl;
-import com.fasterxml.aalto.stax.OutputFactoryImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -340,10 +338,6 @@ public class SiriJacksonConfig {
 			 * normal.
 			 */
 
-			// Use Aalto StAX implementation explicitly
-			XmlFactory f = new XmlFactory(new InputFactoryImpl(),
-					new OutputFactoryImpl());
-
 			JacksonXmlModule module = new JacksonXmlModule();
 
 			/**
@@ -381,7 +375,7 @@ public class SiriJacksonConfig {
 			 */
 			module.setXMLTextElementName("Value");
 
-			xmlMapper = new XmlMapper(f, module);
+			xmlMapper = new XmlMapper(module);
 
 			xmlMapper.configure(
 					DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);

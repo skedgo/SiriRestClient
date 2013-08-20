@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.usf.cutr.siri</groupId>
     <artifactId>sirirestclient</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     
     <name>SiriRestClient</name>    
@@ -90,11 +90,6 @@
             <artifactId>stax-api-android</artifactId>
             <version>1.0-2</version>
         </dependency>
-        <dependency>
-            <groupId>edu.usf.cutr.android.xml</groupId>
-            <artifactId>aalto-xml-android</artifactId>
-            <version>0.9.8</version>
-        </dependency>        
 	</dependencies>    
     
     <repositories>     
